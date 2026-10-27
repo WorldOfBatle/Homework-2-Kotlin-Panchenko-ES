@@ -11,7 +11,7 @@ fun main() {
         playGame(scanner)
 
         println("Повторить игру еще раз? 1 - да/0 - нет")
-        repeatGame = scanner.nextInt()
+        repeatGame = readNumber(scanner, 0, 1)
     }
 
     println("Спасибо за игру!")
@@ -26,7 +26,7 @@ private fun playGame(scanner: Scanner) {
     while (attemptsLeft > 0) {
         println("Осталось попыток: $attemptsLeft")
         print("Введите ваше число: ")
-        val userNumber = scanner.nextInt()
+        val userNumber = readNumber(scanner, 0, 10)
 
         attemptsLeft--
 
@@ -41,4 +41,24 @@ private fun playGame(scanner: Scanner) {
     }
 
     println("Вы проиграли. Загаданное число: $secretNumber")
+}
+
+private fun readNumber(scanner: Scanner, minValue: Int, maxValue: Int): Int {
+    while (true) {
+        if (scanner.hasNextInt()) {
+            val number = scanner.nextInt()
+            scanner.nextLine()
+
+            if (number >= minValue && number <= maxValue) {
+                return number
+            }
+
+            println("Введите число от $minValue до $maxValue.")
+        } else {
+            scanner.nextLine()
+            println("Нужно ввести целое число.")
+        }
+
+        print("Повторите ввод: ")
+    }
 }
