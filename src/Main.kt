@@ -8,7 +8,7 @@ fun main() {
     var repeatGame = 1
 
     while (repeatGame == 1) {
-        playGame(scanner)
+        selectDifficulty(scanner)
 
         println("Повторить игру еще раз? 1 - да/0 - нет")
         repeatGame = readNumber(scanner, 0, 1)
@@ -17,16 +17,35 @@ fun main() {
     println("Спасибо за игру!")
 }
 
-private fun playGame(scanner: Scanner) {
-    val secretNumber = Random.nextInt(0, 11)
-    var attemptsLeft = 3
+private fun selectDifficulty(scanner: Scanner) {
+    println()
+    println("Выберите уровень сложности:")
+    println("1 - Начальный: от 0 до 10, 3 попытки")
+    println("2 - Обычный: от 0 до 100, 7 попыток")
+    println("3 - Сложный: от 0 до 100, 5 попыток")
+    print("Ваш выбор: ")
 
-    println("Компьютер загадал число от 0 до 10.")
+    val difficulty = readNumber(scanner, 1, 3)
+
+    if (difficulty == 1) {
+        playGame(scanner, 10, 3)
+    } else if (difficulty == 2) {
+        playGame(scanner, 100, 7)
+    } else {
+        playGame(scanner, 100, 5)
+    }
+}
+
+private fun playGame(scanner: Scanner, maxValue: Int, attempts: Int) {
+    val secretNumber = Random.nextInt(0, maxValue + 1)
+    var attemptsLeft = attempts
+
+    println("Компьютер загадал число от 0 до $maxValue.")
 
     while (attemptsLeft > 0) {
         println("Осталось попыток: $attemptsLeft")
         print("Введите ваше число: ")
-        val userNumber = readNumber(scanner, 0, 10)
+        val userNumber = readNumber(scanner, 0, maxValue)
 
         attemptsLeft--
 
