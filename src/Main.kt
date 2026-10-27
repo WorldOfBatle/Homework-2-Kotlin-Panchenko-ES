@@ -5,7 +5,16 @@ fun main() {
     println("Игра «Угадай число»")
 
     val scanner = Scanner(System.`in`)
-    playGame(scanner)
+    var repeatGame = 1
+
+    while (repeatGame == 1) {
+        playGame(scanner)
+
+        println("Повторить игру еще раз? 1 - да/0 - нет")
+        repeatGame = scanner.nextInt()
+    }
+
+    println("Спасибо за игру!")
 }
 
 private fun playGame(scanner: Scanner) {
